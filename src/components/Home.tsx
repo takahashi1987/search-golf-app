@@ -9,6 +9,9 @@ import axios from 'axios';
 import Result from './Result';
 import Loading from './Loading';
 
+
+import format from 'date-fns/format';
+
 // Plan型を定義する。export して Result コンポーネントでも import できるようにする
 export type Plan = {
   plan_id: Key;
@@ -56,8 +59,13 @@ const Home = () => {
       setLoading(true);
 
       // 02.APIのモックを作ろうで作成したAPIを貼り付けます。axiosを使って、getのHTTP通信を行います。今は、パラメータは適当な値を入れています。
-      const response = await axios.get('https://l1kwik11ne.execute-api.ap-northeast-1.amazonaws.com/production/golf-courses', {
-        params: { date: date, budget: budget, departure: departure, duration: duration }
+      const response = await axios.get('https://6ruhv4yal6.execute-api.ap-northeast-1.amazonaws.com/production/golf-courses', {
+        params: {
+          date: format(date, 'yyyyMMdd'),
+          budget: budget,
+          departure: departure,
+          duration: duration
+        }
       });
 
       setPlans(response.data.plans);
